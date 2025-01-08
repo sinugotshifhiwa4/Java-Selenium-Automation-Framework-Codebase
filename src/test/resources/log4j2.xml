@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="logBaseDir">logs</Property>
+        <Property name="loggerPattern">%d{yyyy-MM-dd'T'HH:mm:ssXXX} [%p{lowerCase=true}] %c{1} - %msg%n%throwable</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="${loggerPattern}"/>
+            <Filters>
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </Console>
+
+        <!-- Rolling File Appenders -->
+        <RollingFile name="InfoRollingFileAppender" fileName="${logBaseDir}/info/test_info.log"
+                     filePattern="${logBaseDir}/info/info-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${loggerPattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="5MB"/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="7">
+                <Delete basePath="${logBaseDir}/info" maxDepth="1">
+                    <IfLastModified age="14d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <RollingFile name="ErrorRollingFileAppender" fileName="${logBaseDir}/error/test_error.log"
+                     filePattern="${logBaseDir}/error/error-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${loggerPattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10">
+                <Delete basePath="${logBaseDir}/error" maxDepth="1">
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+            <Filters>
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+
+        <RollingFile name="WarnRollingFileAppender" fileName="${logBaseDir}/warn/test_warn.log"
+                     filePattern="${logBaseDir}/warn/warn-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${loggerPattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="5MB"/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5">
+                <Delete basePath="${logBaseDir}/warn" maxDepth="1">
+                    <IfLastModified age="14d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <RollingFile name="DebugRollingFileAppender" fileName="${logBaseDir}/debug/test_debug.log"
+                     filePattern="${logBaseDir}/debug/debug-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${loggerPattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="5MB"/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5">
+                <Delete basePath="${logBaseDir}/debug" maxDepth="1">
+                    <IfLastModified age="7d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+            <Filters>
+                <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+
+        <!-- Async Loggers -->
+        <Async name="AsyncAppender">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="InfoRollingFileAppender"/>
+            <AppenderRef ref="ErrorRollingFileAppender"/>
+            <AppenderRef ref="WarnRollingFileAppender"/>
+            <AppenderRef ref="DebugRollingFileAppender"/>
+        </Async>
+    </Appenders>
+
+    <Loggers>
+        <!-- Custom Application Logger -->
+        <Logger name="com.automation" level="debug" additivity="false">
+            <AppenderRef ref="AsyncAppender"/>
+        </Logger>
+
+        <!-- Root Logger -->
+        <Root level="info">
+            <AppenderRef ref="AsyncAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
