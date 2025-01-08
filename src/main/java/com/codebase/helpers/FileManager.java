@@ -1,8 +1,5 @@
 package com.codebase.helpers;
 
-import com.codebase.utils.LoggerUtil;
-import org.apache.logging.log4j.Logger;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;

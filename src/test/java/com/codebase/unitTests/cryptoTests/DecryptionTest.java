@@ -1,13 +1,8 @@
 package com.codebase.unitTests.cryptoTests;
 
-import com.codebase.ConfigPaths.DotEnvFilePaths;
-import com.codebase.config.DotenvConfig;
-import com.codebase.config.DotenvConfigManager;
 import com.codebase.config.TestBaseConfig;
 import com.codebase.crypto.CryptoManager;
 import com.codebase.crypto.CryptoService;
-import com.codebase.crypto.CryptoUtil;
-import com.codebase.helpers.Base64Utility;
 import com.codebase.helpers.ErrorHandler;
 import com.codebase.parameters.SecretKeysParameters;
 import com.codebase.tests.TestBase;
@@ -15,10 +10,7 @@ import com.codebase.utils.LoggerUtil;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 
-import javax.crypto.SecretKey;
-import java.util.Base64;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static com.codebase.config.TestBaseConfig.getSecretKey;
 
@@ -31,9 +23,9 @@ public class DecryptionTest extends TestBase {
 
     @Test
     public void testDecryptCredentials() throws Exception {
-        try{
-           decryptMultipleCredentials();
-           decryptSingleCredential();
+        try {
+            decryptMultipleCredentials();
+            decryptSingleCredential();
         } catch (Exception error) {
             ErrorHandler.logError(error, "testDecryptCredentials", "Failed to decrypt credentials");
             throw error;
@@ -42,7 +34,7 @@ public class DecryptionTest extends TestBase {
 
 
     private void decryptMultipleCredentials() throws Exception {
-        try{
+        try {
             List<String> decryptedValues =
                     CryptoManager.decryptMultipleKeys(
                             specificDotEnvConfig,
@@ -59,7 +51,7 @@ public class DecryptionTest extends TestBase {
     }
 
     private void decryptSingleCredential() throws Exception {
-        try{
+        try {
             // Single key
             String password = CryptoService.decrypt(
                     getSecretKey(SecretKeysParameters.UAT_SECRET_KEY.getValue()),

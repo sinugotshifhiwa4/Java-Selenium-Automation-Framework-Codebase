@@ -2,8 +2,6 @@ package com.codebase.crypto;
 
 import com.codebase.ConfigPaths.DotEnvFilePaths;
 import com.codebase.config.DotenvConfig;
-import com.codebase.config.DotenvConfigManager;
-import com.codebase.config.TestBaseConfig;
 import com.codebase.helpers.Base64Utility;
 import com.codebase.helpers.ErrorHandler;
 import com.codebase.helpers.FileManager;
@@ -29,10 +27,10 @@ public class CryptoManager {
     /**
      * Encrypts multiple environment variables in the specified file.
      *
-     * @param envType         The type of environment file (e.g., "dev", "uat", "prod").
+     * @param envType          The type of environment file (e.g., "dev", "uat", "prod").
      * @param secretKeyEnvType The type of secret key environment variable.
-     * @param filePath        The path to the file containing environment variables.
-     * @param envVariables    The list of environment variables to encrypt.
+     * @param filePath         The path to the file containing environment variables.
+     * @param envVariables     The list of environment variables to encrypt.
      * @throws IOException If an error occurs while writing to the file.
      */
     public static void encryptMultipleVariables(
@@ -70,10 +68,10 @@ public class CryptoManager {
     /**
      * Encrypts a single environment variable in the specified file.
      *
-     * @param envType         The type of environment file (e.g., "dev", "uat", "prod").
-     * @param envVariable     The environment variable to encrypt.
-     * @param secretKey       The secret key to use for encryption.
-     * @param filePath        The path to the file containing environment variables.
+     * @param envType     The type of environment file (e.g., "dev", "uat", "prod").
+     * @param envVariable The environment variable to encrypt.
+     * @param secretKey   The secret key to use for encryption.
+     * @param filePath    The path to the file containing environment variables.
      */
     private static void encryptSingleVariable(String envType, String envVariable, SecretKey secretKey, String filePath) {
         try {
@@ -141,7 +139,7 @@ public class CryptoManager {
      * Saves the provided secret key to the base environment file specified by the {@link DotEnvFilePaths#BASE_ENV_FILE}
      * constant. The secret key is stored as a Base64-encoded string.
      *
-     * @param envVariable The name of the environment variable to store the secret key in.
+     * @param envVariable      The name of the environment variable to store the secret key in.
      * @param encodedSecretKey The Base64-encoded secret key to store.
      * @throws IOException If an error occurs while saving the secret key.
      */
@@ -165,8 +163,8 @@ public class CryptoManager {
      * Decrypts multiple encrypted environment variables using the provided secret key and returns a list of their decrypted values.
      *
      * @param loadEnvironment The DotenvConfig instance containing the encrypted environment variables.
-     * @param secretKey The secret key used to decrypt the environment variables.
-     * @param requiredKeys The keys of the environment variables to decrypt.
+     * @param secretKey       The secret key used to decrypt the environment variables.
+     * @param requiredKeys    The keys of the environment variables to decrypt.
      * @return A list of decrypted environment variable values.
      * @throws Exception If an error occurs during decryption.
      */
@@ -181,7 +179,7 @@ public class CryptoManager {
             }
 
             return decryptedValues;
-        } catch (Exception error){
+        } catch (Exception error) {
             ErrorHandler.logError(error, "decryptMultipleKeys", "Failed to decrypt single or multiple keys");
             throw error;
         }

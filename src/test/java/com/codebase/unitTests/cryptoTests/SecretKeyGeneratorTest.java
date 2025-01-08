@@ -1,6 +1,5 @@
 package com.codebase.unitTests.cryptoTests;
 
-import com.codebase.ConfigPaths.DotEnvFilePaths;
 import com.codebase.crypto.CryptoManager;
 import com.codebase.crypto.CryptoUtil;
 import com.codebase.helpers.Base64Utility;
@@ -16,7 +15,7 @@ public class SecretKeyGeneratorTest {
 
     @Test
     public void testGenerateAndStoreSecretKey() throws IOException {
-        try{
+        try {
             // Generate a secret key
             SecretKey secretKey = CryptoUtil.generateSecretKey();
 
@@ -26,7 +25,7 @@ public class SecretKeyGeneratorTest {
                     Base64Utility.encodeSecretKey(secretKey)
             );
 
-        } catch (IOException error){
+        } catch (IOException error) {
             ErrorHandler.logError(error, "testGenerateAndStoreSecretKey", "Failed to generate and store secret key");
             throw error;
         }

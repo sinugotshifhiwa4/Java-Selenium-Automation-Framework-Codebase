@@ -12,10 +12,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.crypto.SecretKey;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutorService;
@@ -33,13 +29,12 @@ public class TestBaseConfig {
      * Initializes two DotenvConfig instances, one for the base configuration and one for a specific
      * configuration, under the specified aliases.
      *
-     * @param baseAlias        The alias for the base configuration.
-     * @param baseDotenvConfig The DotenvConfig instance for the base configuration.
-     * @param specificAlias    The alias for the specific configuration.
+     * @param baseAlias            The alias for the base configuration.
+     * @param baseDotenvConfig     The DotenvConfig instance for the base configuration.
+     * @param specificAlias        The alias for the specific configuration.
      * @param specificDotEnvConfig The DotenvConfig instance for the specific configuration.
-     *
      * @throws IllegalArgumentException if either of the DotenvConfig instances are null.
-     * @throws RuntimeException if an error occurs while initializing the configurations.
+     * @throws RuntimeException         if an error occurs while initializing the configurations.
      */
     public static void initializeDotenvConfigs(
             String baseAlias,
@@ -78,7 +73,6 @@ public class TestBaseConfig {
             throw error;
         }
     }
-
 
 
     /**
